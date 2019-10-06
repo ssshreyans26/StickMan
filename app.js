@@ -3,10 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+const bodyParser = require('body-parser');
+var mongo = require('mongodb');
+mongoose.set('useFindAndModify',false);
 var app = express();
 
 // view engine setup
@@ -37,5 +39,17 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+mongoose
+  .connect(
+ 'mongodb+srv://admin:admin@cluster0-szwuh.mongodb.net/admin?retryWrites=true&w=majority'
+// 'mongodb://localhost:27017/workflow_mgmt'
+  )
+  .then(result => {
+    console.log("Mongodb connection made.")
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 module.exports = app;
