@@ -1,7 +1,8 @@
 const Student_Form = require("../models/student");
 
 exports.get_student_form = (req,res,next) => {
-    res.render('<filename>');
+  console.log("student");
+    res.render('student-form');
 }
 
 exports.post_student_form = (req,res,next) => {

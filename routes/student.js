@@ -1,5 +1,6 @@
-var express = require('express');
 const path = require('path');
+var express = require('express');
+
 const studentController = require('../controllers/student');
 var router = express.Router();
 
