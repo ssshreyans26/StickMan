@@ -43,8 +43,8 @@ app.use(function(err, req, res, next) {
 
 mongoose
   .connect(
- 'mongodb+srv://admin:admin@cluster0-szwuh.mongodb.net/admin?retryWrites=true&w=majority'
-// 'mongodb://localhost:27017/workflow_mgmt'
+ //'mongodb+srv://admin:admin@cluster0-szwuh.mongodb.net/admin?retryWrites=true&w=majority'
+'mongodb://localhost:27017/stickman'
   )
   .then(result => {
     console.log("Mongodb connection made.")

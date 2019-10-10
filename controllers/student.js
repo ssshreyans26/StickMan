@@ -8,35 +8,40 @@ exports.get_student_form = (req,res,next) => {
 exports.post_student_form = (req,res,next) => {
     try{
         const student_form  = new Student({
-            Date_of_Registration: req.body,
-            Semester: req.body,
-            Form_Number: req.body,
-            Id_number_of_student: req.body,
-            Date_of_Birth : req.body,
-            Branch : req.body,
-            Name_of_student : req.body,
-            Postal_address : req.body,
-            Name_of_institution : req.body,
-            Student_mobile_number : req.body,
-            Blood_group : req.body,
-            Father_number : req.body,
-            Residence_number : req.body,
-            Route : req.body,
-            Pick_up_stand : req.body,
-            Fess_per_sem : req.body,
-            Deposit : req.body,
-            Total : req.body,
+            Date_of_Registration: req.body.date_of_registration,
+            Semester: req.body.semester,
+            Form_Number: req.body.form_number,
+            Id_number_of_student: req.body.id_number,
+            Date_of_Birth : req.body.date_of_birth,
+            Branch : req.body.branch,
+            Name_of_student : req.body.name,
+            Postal_address : req.body.postal_address,
+            Name_of_institution : req.body.name_of_institution,
+            Student_mobile_number : req.body.student_number,
+            Blood_group : req.body.blood_group,
+            Father_number : req.body.father_number,
+            Residence_number : req.body.house_number,
+            Route : req.body.route,
+            Pick_up_stand : req.body.pick_up_stand,
+            Fess_per_sem : req.body.fees,
+            Deposit : req.body.deposit,
+            Total : (req.body.deposit + req.body.fees),
             Receipt_number : req.body,
         }).save(async (err, student_form) => {
           if (err) {
+            console.log("error");
             res.json({success: false, error: err});
+            
             return;
           }
           const events = await Event.find({}, '-id').lean();
-          res.redirect('<filename>');
+          console.log("success");
+          res.redirect('index');
+
         });
       }
       catch(err) {
+        console.log("error");
         res.json({success: false, error: err});
       }
 }
