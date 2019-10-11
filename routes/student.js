@@ -15,5 +15,4 @@ router.post('/update_student_form', studentController.update_student_form);
 
 router.get('/get_student_data', studentController.get_student_data);
 // router.get('/get_student_data', (req, res) => res.send("hi"));
-
 module.exports = router;

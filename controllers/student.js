@@ -1,10 +1,16 @@
 const Student_Form = require("../models/student");
 
-exports.get_student_data = async (req, res , next) => {
-  console.log("Here")
-  const student = await Student_Form.find({}).lean()   
-  await res.json(student);
-  }
+exports.get_student_data = async (req, res , next) => {  
+  // const user = await Student_Form.find({}).lean();   
+  //  //res.json(student);
+  //  await res.render('student_data',{user});
+  // }
+  Student_Form.find({},async function (err, user) {
+    // console.log(user);
+    await res.render('student_data',{user:user});
+    
+});
+}
 
 
 exports.get_student_form = (req,res,next) => {
@@ -47,13 +53,11 @@ exports.post_student_form = (req,res,next) => {
           }
           Student_Form.find({}, function (err, user) {
             console.log(user);
+            
         });
     
     });
-          console.log("success");
-          
-          // res.redirect('index');
-        
+        console.log("success");
       }
       catch(err) {
         console.log(err);
@@ -88,9 +92,6 @@ exports.update_student_form = (req,res,next) => {
     // the change to be made. Mongoose will smartly combine your existing 
     // document with this change, which allows for partial updates too
     req.body,
-    
-    // an option that asks mongoose to return the updated version 
-    // of the document instead of the pre-updated one.
     {new: true},
     
     // the callback function
