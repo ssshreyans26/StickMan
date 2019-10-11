@@ -1,9 +1,18 @@
 const Student_Form = require("../models/student");
 
+exports.get_student_data = async (req, res , next) => {
+  console.log("Here")
+  const student = await Student_Form.find({}).lean()   
+  await res.json(student);
+  }
+
+
 exports.get_student_form = (req,res,next) => {
   console.log("student");
     res.render('student-form');
 }
+
+
 
 exports.post_student_form = (req,res,next) => {
     try{
@@ -54,14 +63,13 @@ exports.post_student_form = (req,res,next) => {
       }
 }
 
+
+
 exports.delete_student_form = (req, res, next) => {
-    //console.log(req.body.data)
+
     var id = req.body.data;
     Student_Form.findByIdAndRemove(req.params.todoId, (err, todo) => {
-        // As always, handle any potential errors:
         if (err) return res.status(500).send(err);
-        // We'll create a simple object to send back with a message and the id of the document that was removed
-        // You can really do this however you want, though.
         const response = {
             message: "Student Data  deleted successfully ",
             id: todo._id
@@ -69,6 +77,9 @@ exports.delete_student_form = (req, res, next) => {
         return res.status(200).send(response);
     });
   }
+
+
+
 exports.update_student_form = (req,res,next) => {
   Student_Form.findByIdAndUpdate(
     // the id of the item to find
