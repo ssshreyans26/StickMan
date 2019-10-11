@@ -7,7 +7,7 @@ exports.get_student_form = (req,res,next) => {
 
 exports.post_student_form = (req,res,next) => {
     try{
-        const student_form  = new Student({
+        const Student_form  = new Student_Form({
             Date_of_Registration: req.body.date_of_registration,
             Semester: req.body.semester,
             Form_Number: req.body.form_number,
@@ -26,21 +26,29 @@ exports.post_student_form = (req,res,next) => {
             Fess_per_sem : req.body.fees,
             Deposit : req.body.deposit,
             Total : (req.body.deposit + req.body.fees),
-            Receipt_number : req.body,
-        }).save(async (err, student_form) => {
+            Receipt_number : 123,
+        }).save(async (err, Student_form) => {
           if (err) {
+            console.log(err);
             console.log("error");
+            console.log(Student_form);
             res.json({success: false, error: err});
             
             return;
           }
-          const events = await Event.find({}, '-id').lean();
-          console.log("success");
-          res.redirect('index');
-
+          Student_Form.find({}, function (err, user) {
+            console.log(user);
         });
+    
+    });
+          console.log("success");
+          
+          // res.redirect('index');
+        
       }
       catch(err) {
+        console.log(err);
+        console.log(req.body);
         console.log("error");
         res.json({success: false, error: err});
       }
