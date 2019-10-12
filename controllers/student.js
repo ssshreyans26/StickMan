@@ -85,20 +85,21 @@ exports.delete_student_form = (req, res, next) => {
 
 
 exports.update_student_form = (req,res,next) => {
-  Student_Form.findByIdAndUpdate(
-    // the id of the item to find
-    req.params.todoId,
+  console.log(req.params.id);
+//   Student_Form.findByIdAndUpdate(
+//     // the id of the item to find
+//     req.params.todoId,
     
-    // the change to be made. Mongoose will smartly combine your existing 
-    // document with this change, which allows for partial updates too
-    req.body,
-    {new: true},
+//     // the change to be made. Mongoose will smartly combine your existing 
+//     // document with this change, which allows for partial updates too
+//     req.body,
+//     {new: true},
     
-    // the callback function
-    (err, todo) => {
-    // Handle any possible database errors
-        if (err) return res.status(500).send(err);
-        return res.send(todo);
-    }
-)
+//     // the callback function
+//     (err, todo) => {
+//     // Handle any possible database errors
+//         if (err) return res.status(500).send(err);
+//         return res.send(todo);
+//     }
+// )
 }
