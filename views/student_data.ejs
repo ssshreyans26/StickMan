@@ -10,12 +10,83 @@
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                    <form action="/students/update_students_form">
-                        
-                        <input placeholder=<%= foundUser.Semester %>>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </form>
+                <form name="form1" method="POST" action="/student/update_student_form/:<%= foundUser._id%>">
+                  <table>
+                      <tr>
+                          <td>First name</td>
+                          <td><input type="text" name="name" placeholder="<%= foundUser.Name_of_student %>"></td>
+                      </tr>
+                      <tr>
+                          <td>Date of Registration</td>
+                          <td><input type="date" name="date_of_registration" placeholder="<%= foundUser.Date_of_Registration%>"></td>
+                      </tr>
+                      <tr>
+                          <td>Semester</td>
+                          <td><input type="number" name="semester" placeholder="<%= foundUser.Semester %>"></td>
+                      </tr>
+                      <tr>
+                          <td>Form-Number</td>
+                          <td><input type="number" name="form_number" placeholder="<%= foundUser.Form_Number %>"></td>
+                      </tr>
+                      <tr>
+                          <td>Id number of student</td>
+                          <td><input type="number" name="id_number" placeholder="<%= foundUser.Id_number_of_student %>"></td>
+                      </tr>
+                      <tr>
+                          <td>Postal Address</td>
+                          <td><input type="text" name="postal_address" placeholder="<%= foundUser.Postal_address%>"></td>
+                      </tr>
+                      <tr>
+                          <td>Student Mobile Number</td>
+                          <td><input type="number" name="student_number" placeholder="<%= foundUser.Student_mobile_number%>"></td>
+                      </tr>
+              
+                      <tr>
+                          <td>Blood-Group</td>
+                          <td><input type="text" name="blood_group" placeholder="<%= foundUser.Blood_group%>"></td>
+                      </tr>
+                      <tr>
+                          <td>Father's Mobile Number</td>
+                          <td><input type="number" name="father_number"  placeholder="<%= foundUser.Father_number%>"></td>
+                      </tr>
+                      <tr>
+                          <td>House number</td>
+                          <td><input type="number" name="house_number" placeholder="<%= foundUser.Residence_number%>"></td>
+                      </tr>
+                      <tr>
+                          <td>Route</td>
+                          <td><input type="text" name="route" placeholder="<%= foundUser.Router%>"></td>
+                      </tr>
+                      <tr>
+                          <td>Pick-up-Stand</td>
+                          <td><input type="text" name="pick_up_stand" placeholder="<%= foundUser.Pick_up_stand%>"></td>
+                      </tr>
+                      <tr>
+                          <td>Fees per Sem</td>
+                          <td><input type="number" name="fees" placeholder="<%= foundUser.Fess_per_sem%>"></td>
+                      </tr>
+                      <tr>
+                          <td>Deposit</td>
+                          <td><input type="number" name="deposit" placeholder="<%= foundUser.Deposit%>"></td>
+                      </tr>
+                      <tr>
+                          <td>date of birth</td>
+                          <td><input type="date" name="date_of_birth" placeholder="<%= foundUser.Date_of_Birth%>"></td>
+                      </tr>
+                      <tr>
+                          <td>Branch</td>
+                          <td><input type="text" name="branch" placeholder="<%= foundUser.Branch%>"></td>
+                      </tr>
+                      <tr>
+                          <td>Name of Institution</td>
+                          <td><input type="number" name="name_of_institution" placeholder="<%= foundUser.Name_of_institution%>"></td>
+                      </tr>
+              
+                      <tr>
+                          <td colspan="2"><input type="submit" value="UPDATE"></td>
+                      </tr>
+                  </table>
+              </form>
                
                 </div>
 
