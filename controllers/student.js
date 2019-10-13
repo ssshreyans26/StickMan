@@ -1,4 +1,5 @@
 const Student_Form = require("../models/student");
+var mongoose = require('mongoose');
 
 exports.get_student_data = async (req, res , next) => {  
   // const user = await Student_Form.find({}).lean();   
@@ -70,9 +71,9 @@ exports.post_student_form = (req,res,next) => {
 
 
 exports.delete_student_form = (req, res, next) => {
-
-    var id = req.body.data;
-    Student_Form.findByIdAndRemove(req.params.todoId, (err, todo) => {
+console.log("inside delete")
+var id = mongoose.Types.ObjectId(req.params.id);
+    Student_Form.findByIdAndRemove(id, (err, todo) => {
         if (err) return res.status(500).send(err);
         const response = {
             message: "Student Data  deleted successfully ",
@@ -86,20 +87,21 @@ exports.delete_student_form = (req, res, next) => {
 
 exports.update_student_form = (req,res,next) => {
   console.log(req.params.id);
-//   Student_Form.findByIdAndUpdate(
-//     // the id of the item to find
-//     req.params.todoId,
+  var id = mongoose.Types.ObjectId(req.params.id);
+  Student_Form.findByIdAndUpdate(
+    // the id of the item to find
+    id,
     
-//     // the change to be made. Mongoose will smartly combine your existing 
-//     // document with this change, which allows for partial updates too
-//     req.body,
-//     {new: true},
+    // the change to be made. Mongoose will smartly combine your existing 
+    // document with this change, which allows for partial updates too
+    req.body,
+    {new: true},
     
-//     // the callback function
-//     (err, todo) => {
-//     // Handle any possible database errors
-//         if (err) return res.status(500).send(err);
-//         return res.send(todo);
-//     }
-// )
+    // the callback function
+    (err, todo) => {
+    // Handle any possible database errors
+        if (err) return res.status(500).send(err);
+        return res.send(todo);
+    }
+)
 }

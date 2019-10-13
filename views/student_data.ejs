@@ -1,16 +1,26 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <% user.forEach((foundUser)=>{ %>
     <ul>
+            <form name="form1" method="POST" action="/student/delete_student_form/<%= foundUser._id%>">
         <li><%= foundUser.Semester %></li>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <table>
+        <tr>
+                <td colspan="2"><input type="submit" value="DELETE"></td>
+            </tr>
+            <tr>
+       <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             Launch demo modal
           </button>
+        </td>
+        </tr>
+    </table>
+            </form>
           
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <form name="form1" method="GET" action="/student/update_student_form/:<%= foundUser._id%>">
+                <form name="form1" method="POST" action="/student/update_student_form/<%= foundUser._id%>">
                   <table>
                       <tr>
                           <td>First name</td>
