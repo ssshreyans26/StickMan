@@ -94,7 +94,25 @@ exports.update_student_form = (req,res,next) => {
     
     // the change to be made. Mongoose will smartly combine your existing 
     // document with this change, which allows for partial updates too
-    req.body,
+    {Date_of_Registration: req.body.date_of_registration,
+      Semester: req.body.semester,
+      Form_Number: req.body.form_number,
+      Id_number_of_student: req.body.id_number,
+      Date_of_Birth : req.body.date_of_birth,
+      Branch : req.body.branch,
+      Name_of_student : req.body.name,
+      Postal_address : req.body.postal_address,
+      Name_of_institution : req.body.name_of_institution,
+      Student_mobile_number : req.body.student_number,
+      Blood_group : req.body.blood_group,
+      Father_number : req.body.father_number,
+      Residence_number : req.body.house_number,
+      Route : req.body.route,
+      Pick_up_stand : req.body.pick_up_stand,
+      Fess_per_sem : req.body.fees,
+      Deposit : req.body.deposit,
+      Total : (req.body.deposit + req.body.fees),
+      Receipt_number : 123,},
     {new: true},
     
     // the callback function
