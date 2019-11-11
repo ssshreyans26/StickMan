@@ -45,20 +45,19 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
 
 //Mongo URI
-const mongoURI ="mongodb://localhost/file_upload_1";
+const mongoURI = "mongodb://localhost/file_upload_1";
 //Mongo connection
-const conn =mongoose.createConnection(mongoURI);
+const conn = mongoose.createConnection(mongoURI);
 
 mongoose
   .connect(
- //'mongodb+srv://admin:admin@cluster0-szwuh.mongodb.net/admin?retryWrites=true&w=majority'
+//'mongodb+srv://admin:admin@cluster0-szwuh.mongodb.net/admin?retryWrites=true&w=majority'
 'mongodb://localhost:27017/stickman'
   )
   .then(result => {

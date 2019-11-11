@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const studentFormSchema = new Schema({
+const employeeFormSchema = new Schema({
       Joining_date: { type: Date, required: true },
       Marital_status: { type: Boolean, required: true },
       Emergency_contact: { type: Number, required: true },
@@ -17,7 +17,6 @@ const studentFormSchema = new Schema({
       Assigned_route: {type:String,required:false},
       Assigned_organisation: {type:String,required:false},
       Vehicle_number: {type:String,required:false}
-
 });
 
-module.exports = mongoose.model('employee_form', studentFormSchema);
+module.exports = mongoose.model('employee_form', employeeFormSchema);
