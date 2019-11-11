@@ -8,9 +8,19 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var studentRouter = require('./routes/student');
 const bodyParser = require('body-parser');
+var multer =require("multer");
+var gridFsStorage =require("multer-gridfs-storage");
+var grid =require("gridfs-stream");
+const PORT = 3000;
 var mongo = require('mongodb');
 mongoose.set('useFindAndModify',false); 
 var app = express();
+
+// var multer = require('multer');
+// var GridFsStorage = require('multer-gridfs-storage');
+// var Grid = require('gridfs-stream');
+// Grid.mongo = mongoose.mongo;
+// var gfs = Grid(conn.db);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,6 +51,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//Mongo URI
+const mongoURI ="mongodb://localhost/file_upload_1";
+//Mongo connection
+const conn =mongoose.createConnection(mongoURI);
+
 mongoose
   .connect(
  //'mongodb+srv://admin:admin@cluster0-szwuh.mongodb.net/admin?retryWrites=true&w=majority'
@@ -52,5 +67,36 @@ mongoose
   .catch(err => {
     console.log(err);
   });
+
+app.listen(PORT, function(e) {
+  console.log("App listening in port "+PORT)
+})
+
+
+let gfs;
+
+conn.once("open",()=>{
+    //init stream
+    gfs=grid(conn.db,mongoose.mongo);
+    gfs.collection("file_upload_1");
+});
+
+//Create Storage Engine
+const storage =new gridFsStorage({
+    url:mongoURI,
+    file:(req,file)=>{
+        return new Promise((resolve,reject)=>{
+            const filename =file.originalname;
+            const fileInfo ={
+                filename:filename,
+                bucketName:"file_upload_1"
+            }
+            resolve(fileInfo);
+        });
+        
+    }
+});
+
+const upload =multer({storage});
 
 module.exports = app;
