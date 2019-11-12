@@ -9,6 +9,7 @@ const employeeFormSchema = new Schema({
       Date_of_Birth : { type: Date, required: true },
       Name : { type: String, required: true },
       Postal_address : { type: String, required: true },
+      Pin_Code : {type: Number, required: true},
       Post : { type: String, required: true },
       Mobile_number : { type: Number, required: true },
       Gender : {type: String, required: true},
