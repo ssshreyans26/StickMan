@@ -1,12 +1,42 @@
 const Employee_Form = require("../models/employee");
 var mongoose = require('mongoose');
+var multer =require("multer");
+var gridFsStorage =require("multer-gridfs-storage");
+var grid =require("gridfs-stream");
+//Mongo URI
+const mongoURI = "mongodb://localhost/stickman";
+//Mongo connection
+const conn = mongoose.createConnection(mongoURI);
+let gfs;
+
+conn.once("open",()=>{
+    //init stream
+    gfs=grid(conn.db,mongoose.mongo);
+    gfs.collection("stickman");
+});
+const storage = new gridFsStorage({
+  url:mongoURI,
+  file:(req,file)=>{
+      return new Promise((resolve,reject)=>{
+          const filename =file.originalname;
+          const fileInfo ={
+              filename:filename,
+              bucketName:"stickman"
+          }
+          resolve(fileInfo);
+      });
+      
+  }
+});
+
+const upload =multer({storage});
 
 exports.get_employee_form = (req,res,next) => {
     console.log("employee");
       res.render('employee-form');
   }
 
-exports.post_employee_form = (req,res,next) => {
+exports.post_employee_form =  (req,res,next) => {
       try{
         const Employee_form = new Employee_Form({
           Joining_date: req.body.Joining_date,
@@ -34,6 +64,7 @@ exports.post_employee_form = (req,res,next) => {
             
             return;
           }
+          
           Employee_Form.find({}, function (err, user) {
             console.log(user);
             
@@ -48,4 +79,5 @@ exports.post_employee_form = (req,res,next) => {
         console.log("error");
         res.json({success: false, error: err});
       }
+      ;
       }

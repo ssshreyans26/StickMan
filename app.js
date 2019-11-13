@@ -9,13 +9,26 @@ var usersRouter = require('./routes/users');
 var employeeRouter = require('./routes/employee');
 var studentRouter = require('./routes/student');
 const bodyParser = require('body-parser');
+var passport = require("passport");
 var multer =require("multer");
 var gridFsStorage =require("multer-gridfs-storage");
 var grid =require("gridfs-stream");
+var User =require("./models/user");
+var localStrategy = require("passport-local");
+var passportLocalMongoose = require("passport-local-mongoose");
 const PORT = 3000;
 var mongo = require('mongodb');
 mongoose.set('useFindAndModify',false); 
 var app = express();
+
+
+app.use(require("express-session")({
+  secret:"Rusty is a Dog",
+  resave:false,
+  saveUninitialized:false
+
+}));
+
 
 // var multer = require('multer');
 // var GridFsStorage = require('multer-gridfs-storage');
@@ -31,6 +44,12 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -99,5 +118,8 @@ const storage =new gridFsStorage({
 });
 
 const upload =multer({storage});
+
+
+
 
 module.exports = app;
