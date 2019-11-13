@@ -8,23 +8,44 @@ exports.get_employee_form = (req,res,next) => {
 
 exports.post_employee_form = (req,res,next) => {
       try{
-        const Employee_Form = new Employee_Form({
+        const Employee_form = new Employee_Form({
           Joining_date: req.body.Joining_date,
           Marital_status: req.body.Marital_status,
           Emergency_contact: req.body.Emergency_contact,
           Employee_number: req.body.Employee_number,
-          Date_of_Birth : { type: Date, required: true },
-          Name : { type: String, required: true },
-          Postal_address : { type: String, required: true },
-          Pin_Code : {type: Number, required: true},
-          Post : { type: String, required: true },
-          Mobile_number : { type: Number, required: true },
-          Gender : {type: String, required: true},
-          Salary: {type:Number,required:true},
-          License_number:{type:String,required:false},
-          Assigned_route: {type:String,required:false},
-          Assigned_organisation: {type:String,required:false},
-          Vehicle_number: {type:String,required:false}
-        })
+          Date_of_Birth : req.body.Date_of_Birth,
+          Name : req.body.Name,
+          Postal_address : req.body.Postal_address,
+          Pin_Code : req.body.Pin_Code,
+          Post : req.body.Post,
+          Mobile_number : req.body.Mobile_number,
+          Gender : req.body.Gender,
+          Salary: req.body.Salary,
+          License_number:req.body.License_number,
+          Assigned_route: req.body.Assigned_route,
+          Assigned_organisation: req.body.Assigned_organisation,
+          Vehicle_number: req.body.Vehicle_number
+        }).save(async (err, Employee_form) => {
+          if (err) {
+            console.log(err);
+            console.log("error");
+            console.log(Student_form);
+            res.json({success: false, error: err});
+            
+            return;
+          }
+          Employee_Form.find({}, function (err, user) {
+            console.log(user);
+            
+        });
+    
+    });
+        console.log("success");
       }
-}
+      catch(err) {
+        console.log(err);
+        console.log(req.body);
+        console.log("error");
+        res.json({success: false, error: err});
+      }
+      }
