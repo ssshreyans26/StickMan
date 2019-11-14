@@ -16,4 +16,6 @@ router.post('/post_login',userController.post_login);
 
 router.get('/logout' , userController.get_logout);
 
+router.get('/get_secret' , userController.get_secret);
+
 module.exports = router;
