@@ -8,11 +8,21 @@ const mongoURI = "mongodb://localhost/stickman";
 //Mongo connection
 const conn = mongoose.createConnection(mongoURI);
 let gfs;
+mongoose.connect(
+//'mongodb+srv://admin:admin@cluster0-szwuh.mongodb.net/admin?retryWrites=true&w=majority'
+'mongodb://localhost:27017/stickman'
+  )
+  .then(result => {
+    console.log("Mongodb connection made.")
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 conn.once("open",()=>{
     //init stream
     gfs=grid(conn.db,mongoose.mongo);
-    gfs.collection("stickman");
+    gfs.collection("upload");
 });
 const storage = new gridFsStorage({
   url:mongoURI,
@@ -21,7 +31,7 @@ const storage = new gridFsStorage({
           const filename =file.originalname;
           const fileInfo ={
               filename:filename,
-              bucketName:"stickman"
+              bucketName:"upload"
           }
           resolve(fileInfo);
       });
@@ -36,7 +46,7 @@ exports.get_employee_form = (req,res,next) => {
       res.render('employee-form');
   }
 
-exports.post_employee_form =  (req,res,next) => {
+exports.post_employee_form = upload.single("Aadhar_card"), (req,res,next) => {
       try{
         const Employee_form = new Employee_Form({
           Joining_date: req.body.Joining_date,
@@ -69,6 +79,8 @@ exports.post_employee_form =  (req,res,next) => {
             console.log(user);
             
         });
+        
+        console.log(req.file);
     
     });
         console.log("success");

@@ -37,15 +37,6 @@ exports.get_secret = (req, res , next ) =>{
 
 exports.post_login = (req, res,next) => {
   console.log("inside post login")
-  // passport.authenticate("local",{
-  //   successRedirect:("/users/get_login"),
-  //   failureRedirect:("/users/get_login")
-  // });
-  // passport.authenticate('local', { failureRedirect: '/users/get_login' }),
-  //   function(req, res) {
-  //   res.redirect('/users/get_secret');
-  //   console.log("success");
-  // }
   passport.authenticate('local')(req, res, function () {
     res.redirect('/users/get_secret');
 });
