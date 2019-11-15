@@ -46,7 +46,7 @@ exports.get_employee_form = (req,res,next) => {
       res.render('employee-form');
   }
 
-exports.post_employee_form = upload.single("Aadhar_card"), (req,res,next) => {
+exports.post_employee_form =  upload.fields([ { name: 'Aadhar_card', maxCount: 1 },{ name: 'License_file', maxCount: 1 },{ name: 'Profile_Picture', maxCount: 1 }]),(req,res,next) => {
       try{
         const Employee_form = new Employee_Form({
           Joining_date: req.body.Joining_date,
