@@ -17,7 +17,11 @@ const employeeFormSchema = new Schema({
       License_number:{type:String,required:false},
       Assigned_route: {type:String,required:false},
       Assigned_organisation: {type:String,required:false},
-      Vehicle_number: {type:String,required:false}
+      Vehicle_number: {type:String,required:false},
+      files: [{
+          fileId: {type:String,required:false},
+          filename: {type:String,required:false}
+      }]                                
 });
 
 module.exports = mongoose.model('employee_form', employeeFormSchema);

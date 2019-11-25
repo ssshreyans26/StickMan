@@ -8,16 +8,16 @@ const mongoURI = "mongodb://localhost/stickman";
 //Mongo connection
 const conn = mongoose.createConnection(mongoURI);
 let gfs;
-mongoose.connect(
-//'mongodb+srv://admin:admin@cluster0-szwuh.mongodb.net/admin?retryWrites=true&w=majority'
-'mongodb://localhost:27017/stickman'
-  )
-  .then(result => {
-    console.log("Mongodb connection made.")
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// mongoose.connect(
+// //'mongodb+srv://admin:admin@cluster0-szwuh.mongodb.net/admin?retryWrites=true&w=majority'
+// 'mongodb://localhost:27017/stickman'
+//   )
+//   .then(result => {
+//     console.log("Mongodb connection made.")
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
 
 conn.once("open",()=>{
     //init stream
@@ -42,12 +42,26 @@ const storage = new gridFsStorage({
 const upload =multer({storage});
 
 exports.get_employee_form = (req,res,next) => {
-    console.log("employee");
+    // console.log("employee");
       res.render('employee-form');
   }
+var cpUploads =  upload.fields([ { name: 'Aadhar_card', maxCount: 1 },{ name: 'License_file', maxCount: 1 },{ name: 'Profile_Picture', maxCount: 1 }]);
 
-exports.post_employee_form =  upload.fields([ { name: 'Aadhar_card', maxCount: 1 },{ name: 'License_file', maxCount: 1 },{ name: 'Profile_Picture', maxCount: 1 }]),(req,res,next) => {
-      try{
+exports.post_employee_form =   (req,res,next) =>  {
+  //console.log(req.files);
+  
+  cpUploads(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred when uploading.
+      res.send(err);
+    } else if (err) {
+      // An unknown error occurred when uploading.
+      res.send(err);
+    }
+    console.log(req.files)
+  });
+  // console.log("insde post emmployeesss")  
+  try{
         const Employee_form = new Employee_Form({
           Joining_date: req.body.Joining_date,
           Marital_status: req.body.Marital_status,
@@ -64,23 +78,25 @@ exports.post_employee_form =  upload.fields([ { name: 'Aadhar_card', maxCount: 1
           License_number:req.body.License_number,
           Assigned_route: req.body.Assigned_route,
           Assigned_organisation: req.body.Assigned_organisation,
-          Vehicle_number: req.body.Vehicle_number
+          Vehicle_number: req.body.Vehicle_number,
+          files :[{
+            
+          }]
         }).save(async (err, Employee_form) => {
           if (err) {
             console.log(err);
             console.log("error");
-            console.log(Student_form);
-            res.json({success: false, error: err});
-            
+            console.log(Employee_form);
+            res.json({success: false, error: err}); 
             return;
           }
           
           Employee_Form.find({}, function (err, user) {
-            console.log(user);
-            
+            // console.log(user);
+            // res.render("")
         });
         
-        console.log(req.file);
+        console.log(req.files.fields);
     
     });
         console.log("success");

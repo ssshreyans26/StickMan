@@ -16,7 +16,7 @@ var grid =require("gridfs-stream");
 var User =require("./models/user");
 var localStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
-const PORT = 3000;
+//const PORT = 3000;
 var mongo = require('mongodb');
 mongoose.set('useFindAndModify',false); 
 var app = express();
@@ -68,7 +68,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   // render the error page
   res.status(err.status || 500);
-  res. render('error');
+  res.send(err);
 });
 
 //Mongo URI
@@ -88,9 +88,9 @@ mongoose
     console.log(err);
   });
 
-app.listen(PORT, function(e) {
-  console.log("App listening in port "+PORT)
-})
+// app.listen(PORT, function(e) {
+//   console.log("App listening in port "+PORT)
+// })
 
 
 let gfs;
